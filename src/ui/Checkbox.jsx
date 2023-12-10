@@ -16,6 +16,7 @@ const StyledCheckbox = styled.div`
     accent-color: var(--color-brand-600);
   }
   
+  
 
   & label {
     flex: 1;

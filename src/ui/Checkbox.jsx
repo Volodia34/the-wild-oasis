@@ -15,6 +15,7 @@ const StyledCheckbox = styled.div`
   & input[type="checkbox"]:disabled {
     accent-color: var(--color-brand-600);
   }
+  
 
   & label {
     flex: 1;

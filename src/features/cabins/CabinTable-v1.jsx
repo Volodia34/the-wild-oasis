@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import {getCabins} from "../../services/apiCabins.js";
+import {useQuery} from "react-query";
 import Spinner from "../../ui/Spinner.jsx";
 import CabinRow from "./CabinRow.jsx";
-import {useCabins} from "./useCabins.js";
 
 // eslint-disable-next-line no-unused-vars
 const Table = styled.div`
@@ -32,7 +33,10 @@ const TableHeader = styled.header`
 
 function CabinTable() {
  // eslint-disable-next-line no-unused-vars
- const {isLoading,cabins} =useCabins()
+ const {isLoading, data: cabins,error} = useQuery({
+  queryKey: ['cabins'],
+  queryFn: getCabins,
+ })
  if(isLoading) return <Spinner/>
  return <Table role='table'>
   <TableHeader role='row'>

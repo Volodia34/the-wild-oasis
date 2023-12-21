@@ -21,6 +21,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
         defaultValues: isEditSession ? editValue : {}
     })
 
+    console.log(register)
     const {errors} = formState
 
 

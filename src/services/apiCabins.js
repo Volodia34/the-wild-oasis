@@ -3,14 +3,13 @@ import supabase, {supabaseUrl} from "./supabase.js";
 export async function getCabins() {
     // eslint-disable-next-line no-unused-vars,no-undef
     const {data, error} = await supabase.from('cabins').select('*')
-    console.log(data)
 
     if (error) {
         console.error(error)
         throw new Error('Cabins could not be loaded')
     }
 
-    return data[0]
+    return data
 }
 
 export async function createEditCabin(newCabin, id) {

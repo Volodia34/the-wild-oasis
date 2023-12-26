@@ -1,4 +1,7 @@
-import styled from "styled-components";
+ import styled from "styled-components";
+ import Heading from "../../ui/Heading.jsx";
+ import {Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip} from "recharts";
+ import {useDarkMode} from "../../context/DarkModeContext.jsx";
 
 const ChartBox = styled.div`
   /* Box */
@@ -18,6 +21,7 @@ const ChartBox = styled.div`
   }
 `;
 
+ // eslint-disable-next-line no-unused-vars
 const startDataLight = [
   {
     duration: "1 night",
@@ -31,7 +35,7 @@ const startDataLight = [
   },
   {
     duration: "3 nights",
-    value: 0,
+    value: 5,
     color: "#eab308",
   },
   {
@@ -51,7 +55,7 @@ const startDataLight = [
   },
   {
     duration: "15-21 nights",
-    value: 0,
+    value: 2,
     color: "#3b82f6",
   },
   {
@@ -61,6 +65,7 @@ const startDataLight = [
   },
 ];
 
+ // eslint-disable-next-line no-unused-vars
 const startDataDark = [
   {
     duration: "1 night",
@@ -104,7 +109,9 @@ const startDataDark = [
   },
 ];
 
+ // eslint-disable-next-line no-unused-vars
 function prepareData(startData, stays) {
+
   // A bit ugly code, but sometimes this is what it takes when working with real data 😅
 
   function incArrayValue(arr, field) {
@@ -130,3 +137,29 @@ function prepareData(startData, stays) {
 
   return data;
 }
+
+
+ // eslint-disable-next-line no-unused-vars,react/prop-types
+function DurtionChart({confirmedStays}) {
+  const {isDarkMode} = useDarkMode()
+  const startData = isDarkMode ? startDataDark : startDataLight
+  const data = prepareData(startData,confirmedStays)
+
+  return (
+      <ChartBox>
+        <Heading as='h2'>Stay duration summary</Heading>
+        <ResponsiveContainer width="100%" height={240}>
+          <PieChart>
+            <Pie data={data} nameKey='duraction' dataKey='value' innerRadius={85} outerRadius={110} cx='40%' cy='50%' paddingAngle={3}>
+              {data.map(entry => <Cell fill={entry.color} stroke={entry.color}key={entry.duration} />)}
+            </Pie>
+            <Tooltip/>
+            <Legend verticalAlign='middle' align='right' width='15%' layout='vertical' iconSize={15} iconType='circle'/>
+
+          </PieChart>
+        </ResponsiveContainer>
+      </ChartBox>
+  )
+}
+
+export default DurtionChart

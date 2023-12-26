@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import Tag from "../../ui/Tag.jsx";
+import {Flag} from "../../ui/Flag.jsx";
+import Button from "../../ui/Button.jsx";
+import {Link} from "react-router-dom";
+import CheckoutButton from "./CheckoutButton.jsx";
 
 const StyledTodayItem = styled.li`
   display: grid;
@@ -15,6 +20,31 @@ const StyledTodayItem = styled.li`
   }
 `;
 
+// eslint-disable-next-line no-unused-vars
 const Guest = styled.div`
   font-weight: 500;
 `;
+
+// eslint-disable-next-line react/prop-types
+function TodayItem({activity}) {
+    // eslint-disable-next-line react/prop-types,no-unused-vars
+    const {id ,status,guests,numNights} = activity
+    return (
+        <StyledTodayItem>
+            {status === 'unconfirmed' && <Tag type='green'>Ariving</Tag> }
+            {status === 'checked-in' && <Tag type='blue'>Depating</Tag> }
+
+            {/* eslint-disable-next-line react/prop-types */}
+            <Flag src={guests.countryFlag} alt={`Flag of ${guests.country}`}/>
+            {/* eslint-disable-next-line react/prop-types */}
+            <Guest>{guests.fullName}</Guest>
+            <div>{numNights} nights</div>
+            {status === 'unconfirmed' && <Button size='small' variation='primary' as={Link} to={`/checkin/${id}`}>Check in</Button> }
+
+            {status === 'checked-in' && <CheckoutButton bookingId={id}>Check in</CheckoutButton> }
+        </StyledTodayItem>
+    )
+}
+
+
+export default TodayItem

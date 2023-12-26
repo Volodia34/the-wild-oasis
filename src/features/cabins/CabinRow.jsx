@@ -92,7 +92,7 @@ function CabinRow({cabin}) {
 
                             <Menus.List id={cabinId}>
                                 <Menus.Button icon={<HiSquare2Stack/>}
-                                              onClick={handleDuplicate}>Duplicate</Menus.Button>
+                                              onClick={handleDuplicate} disabled={isCreating}>Duplicate</Menus.Button>
                                 <Modal.Open opens='edit'>
                                     <Menus.Button icon={<HiPencil/>}>Edit</Menus.Button>
                                 </Modal.Open>
